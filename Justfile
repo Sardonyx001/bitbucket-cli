@@ -5,3 +5,7 @@ build:
 # Clean build artifacts
 clean:
     rm -rf build/
+
+# Format Go code
+fmt:
+    gofmt -s -w .

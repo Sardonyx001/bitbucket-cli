@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -43,7 +43,7 @@ func (b *BitbucketCLI) triggerRepoScan(projectKey string, slug string) {
 	}
 
 	if res.StatusCode != http.StatusOK {
-		resBody, err := ioutil.ReadAll(res.Body)
+		resBody, err := io.ReadAll(res.Body)
 		if err == nil {
 			b.logger.Debugf("resp=%v", string(resBody))
 		}

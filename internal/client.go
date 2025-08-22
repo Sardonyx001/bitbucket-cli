@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 )
 
 // Custom Client to perform custom REST requests
@@ -14,10 +13,6 @@ func (b *BitbucketCLI) doReq(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 	return b.httpClient.Do(req)
-}
-
-func (b *BitbucketCLI) getUrl() *url.URL {
-	return b.restUrl
 }
 
 func (b *BitbucketCLI) prepareRequest(req *http.Request) error {

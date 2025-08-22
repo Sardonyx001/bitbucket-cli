@@ -3,7 +3,7 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -27,7 +27,7 @@ func (b *BitbucketCLI) getScanResult(projectKey string, slug string) ScanResult 
 	// Custom endpoint!
 	// https://docs.soteri.io/security-for-bitbucket/3.17.0/(3.17.0)-REST-API-for-Scripting-&-Automation.14602141697.html#id-(3.17.0)RESTAPIforScripting&Automation-Fetchingscanresultsforaspecificbranch
 
-	triggerScanUrl, err := b.restUrl.Parse(
+	triggerScanUrl, err := b.restURL.Parse(
 		fmt.Sprintf("security/1.0/scan/%s/repos/%s",
 			url.PathEscape(projectKey),
 			url.PathEscape(slug),
@@ -55,7 +55,7 @@ func (b *BitbucketCLI) getScanResult(projectKey string, slug string) ScanResult 
 	}
 
 	if res.StatusCode != http.StatusOK {
-		resBody, err := ioutil.ReadAll(res.Body)
+		resBody, err := io.ReadAll(res.Body)
 		if err == nil {
 			b.logger.Debugf("resp=%v", string(resBody))
 		}
@@ -67,7 +67,6 @@ func (b *BitbucketCLI) getScanResult(projectKey string, slug string) ScanResult 
 	dec := json.NewDecoder(res.Body)
 	dec.DisallowUnknownFields()
 	err = dec.Decode(&scanResult)
-
 	if err != nil {
 		b.logger.Fatalf("unable to decode JSON: %v", err)
 	}

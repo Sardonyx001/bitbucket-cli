@@ -1,8 +1,10 @@
+// util.go
 package test
 
 import (
-	cli "github.com/swisscom/bitbucket-cli/internal"
 	"os"
+
+	cli "github.com/swisscom/bitbucket-cli/internal"
 )
 
 func MustGetCLI() *cli.BitbucketCLI {

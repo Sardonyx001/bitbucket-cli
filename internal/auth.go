@@ -3,9 +3,10 @@ package cli
 import (
 	"context"
 	"fmt"
+	"net/http"
+
 	bitbucket "github.com/gfleury/go-bitbucket-v1"
 	git_http "github.com/go-git/go-git/v5/plumbing/transport/http"
-	"net/http"
 )
 
 type BasicAuth struct {
