@@ -15,13 +15,12 @@ func (b *BitbucketCLI) triggerRepoScan(projectKey string, slug string) {
 	// Custom endpoint!
 	// https://docs.soteri.io/security-for-bitbucket/3.17.0/(3.17.0)-REST-API-for-Scripting-&-Automation.14602141697.html#id-(3.17.0)RESTAPIforScripting&Automation-Kickingoffanewrepositoryscan
 
-	triggerScanUrl, err := b.restUrl.Parse(
+	triggerScanUrl, err := b.restURL.Parse(
 		fmt.Sprintf("security/1.0/scan/%s/repos/%s",
 			url.PathEscape(projectKey),
 			url.PathEscape(slug),
 		),
 	)
-
 	if err != nil {
 		b.logger.Fatalf("unable to parse url: %v", err)
 	}

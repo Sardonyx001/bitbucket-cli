@@ -1,13 +1,14 @@
 package main
 
 import (
+	"os"
+	"path"
+
 	"github.com/adrg/xdg"
 	"github.com/alexflint/go-arg"
 	"github.com/sirupsen/logrus"
 	cli "github.com/swisscom/bitbucket-cli/internal"
 	"gopkg.in/yaml.v2"
-	"os"
-	"path"
 )
 
 type Args struct {
@@ -15,7 +16,7 @@ type Args struct {
 	Username    string          `arg:"-u,--username,env:BITBUCKET_USERNAME"`
 	Password    string          `arg:"-p,--password,env:BITBUCKET_PASSWORD"`
 	AccessToken string          `arg:"-t,--access-token,env:BITBUCKET_ACCESS_TOKEN" help:"A Personal Access Token"`
-	Url         string          `arg:"-u,--url,env:BITBUCKET_URL" help:"URL to the REST API of Bitbucket, e.g: https://git.example.com/rest"`
+	Url         string          `arg:"-U,--url,env:BITBUCKET_URL" help:"URL to the REST API of Bitbucket, e.g: https://git.example.com/rest"`
 	Config      string          `arg:"-c,--config"`
 	Project     *cli.ProjectCmd `arg:"subcommand:project"`
 	Repo        *cli.RepoCmd    `arg:"subcommand:repo"`
@@ -74,7 +75,6 @@ func main() {
 	}
 
 	p.Fail("Command must be specified")
-
 }
 
 func loadConfigIntoArgs(logger *logrus.Logger) {
